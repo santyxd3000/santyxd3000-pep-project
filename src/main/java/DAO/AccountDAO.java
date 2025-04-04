@@ -84,7 +84,35 @@ public class AccountDAO {
         }
 
     public boolean accountExistsId (int account_id){
-        
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        try {
+            connection = ConnectionUtil.getConnection();
+
+            String sql = "SELECT 1 FROM account WHERE account_id = ?;";
+            preparedStatement = connection.prepareStatement(sql);
+
+            preparedStatement.setInt(1,account_id);
+
+            rs = preparedStatement.executeQuery();
+
+            return rs.next();
+
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            try {
+                if (rs != null) rs.close();
+                if (preparedStatement != null) preparedStatement.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+
         return false;
     }
 
