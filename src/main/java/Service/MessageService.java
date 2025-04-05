@@ -25,11 +25,11 @@ public class MessageService {
         long time = message.getTime_posted_epoch();
 
         if (text == null || text.isBlank() || text.length()>255) {
-            throw new IllegalArgumentException("Message business rule error");
+            throw new IllegalArgumentException("");
         }
 
         if (!accountDAO.accountExistsById(postedBy)){
-            throw new IllegalArgumentException("User does not exist");
+            throw new IllegalArgumentException("");
         }
 
         return messageDAO.insertMessage(new Message(postedBy, text, time));
@@ -50,12 +50,12 @@ public class MessageService {
     public Message updateMessage(int message_id, Message message) {
         String text = message.getMessage_text();
         if (text == null || text.isBlank() || text.length() > 255) {
-            throw new IllegalArgumentException("Text Business Rule Error");
+            throw new IllegalArgumentException("");
         }
 
         Message existingMessage = messageDAO.getMessageByMessageId(message_id);
         if (existingMessage == null) {
-            throw new IllegalArgumentException("No message found");
+            throw new IllegalArgumentException("");
         }
 
         messageDAO.updatMessage(message_id,message);

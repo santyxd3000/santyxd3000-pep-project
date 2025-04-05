@@ -23,14 +23,14 @@ public class AccountService {
     public Account registerAccount (Account account) throws IllegalArgumentException{
         String username = account.getUsername();
         if (username == null || username.isBlank()){
-            throw new IllegalArgumentException("User cannot be blank");
+            throw new IllegalArgumentException("");
         }
         String password = account.getPassword();
         if (password == null || password.length() < 4) {
-            throw new IllegalArgumentException("String must be at least 4 characters");
+            throw new IllegalArgumentException("");
         }
         if (accountExists(username)){
-            throw new IllegalArgumentException("Account with the username already exists");
+            throw new IllegalArgumentException("");
         }
         return accountDAO.insertAccount(account);
     }
@@ -41,11 +41,11 @@ public class AccountService {
         Account account = getAccountByUsername(username);
 
         if (account == null) {
-            throw new IllegalArgumentException("Invalid username or password");
+            throw new IllegalArgumentException("");
         }
 
         if (!account.getPassword().equals(password)){
-            throw new IllegalArgumentException("Invalid username or password");
+            throw new IllegalArgumentException("");
         }
 
         return account;
