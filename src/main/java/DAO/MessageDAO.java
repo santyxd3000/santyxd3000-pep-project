@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +20,9 @@ public class MessageDAO {
         List<Message> messages = new ArrayList<>();
         try {
             connection = ConnectionUtil.getConnection();
-            String sql = "SELECT * FROM message WHERE message_id = ?;";
+            String sql = "SELECT * FROM message;";
             preparedStatement = connection.prepareStatement(sql);
-           rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
            while (rs.next()){
             Message message = new Message(rs.getInt("message_id"),rs.getInt("posted_by"),rs.getString("message_text"),rs.getInt("time_posted_epoch"));
             messages.add(message);
@@ -32,7 +33,7 @@ public class MessageDAO {
             try {
                 if (rs != null) rs.close();
                 if (preparedStatement != null) preparedStatement.close();
-                
+                if (connection != null) connection.close(); 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
@@ -112,7 +113,7 @@ public class MessageDAO {
         try {
             connection = ConnectionUtil.getConnection();
             String sql = "INSERT INTO message (posted_by, message_text, time_posted_epoch) VALUES (?, ?, ?);";
-            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
 
             preparedStatement.setInt(1, message.getPosted_by());
             preparedStatement.setString(2, message.getMessage_text());
