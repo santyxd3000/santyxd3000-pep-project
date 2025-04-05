@@ -37,18 +37,19 @@ public class AccountService {
 
     //Handle login
 
-    public Account login (String username, String password) throws IllegalArgumentException {
+    public Account login(String username, String password) throws IllegalArgumentException {
         Account account = getAccountByUsername(username);
-        
+
         if (account == null) {
             throw new IllegalArgumentException("Invalid username or password");
         }
 
-        if (!account.getPassword().equals(password)) {
+        if (!account.getPassword().equals(password)){
             throw new IllegalArgumentException("Invalid username or password");
+        }
 
         return account;
+    }
 
-    }
     
-    }
+}

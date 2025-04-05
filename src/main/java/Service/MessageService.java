@@ -1,6 +1,5 @@
 package Service;
 
-import Model.Account;
 import Model.Message;
 import DAO.MessageDAO;
 import DAO.AccountDAO;

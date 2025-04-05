@@ -83,7 +83,7 @@ public class AccountDAO {
             return null;
         }
 
-    public boolean accountExistsId (int account_id){
+    public boolean accountExistsById (int account_id){
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
